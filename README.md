@@ -10,9 +10,9 @@ You are welcome to fork this and make changes to them as you please, as long as 
 
 ## Plans
 
- - Join Command
+ ### Join Command
  I plan on leaving this be for a little while. I like where it is in terms of functionality and do not have plans to change it significantly.
 
-- Slots Script
+### Slots Script
 I plan to learn how to use the JSON settings format in python to make a configuration file for the script. This will allow for things like changing the emotes it uses, what emote does the jackpot, the rewards, currency name, responses and the user cooldown. This is a little bit of a task for me, and given my current schedule and motivation I have no ETA for when this will be done.
 Once that is complete, I also plan to introduce a GUI in streamlabs for it so you can change the JSON settings without needing to edit the file in a text editor. This is a more advanced task that I will likely start a second directory for as I might have to change a large portion of the code base to implement.
