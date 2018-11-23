@@ -1,0 +1,18 @@
+{
+	"double_reward": 2000,
+	"triple_reward": 10000,
+	"jackpot_reward": 25000,
+	"cost": 100,
+	"currency": "C-Coins",
+	"command": "!slots",
+	"cooldown": 600,
+	"reel": [
+		"Kappa",
+		"PogChamp",
+		"LUL",
+		"BlessRNG",
+		"KappaPride",
+		"DoritosChip",
+		"TheIlluminati"
+	]
+}

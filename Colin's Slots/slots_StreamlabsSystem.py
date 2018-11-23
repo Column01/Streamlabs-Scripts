@@ -3,8 +3,8 @@ import sys
 import random
 import time
 import clr
-# from enum import Enum
-
+import json
+import codecs
 sys.path.append(os.path.join(os.path.dirname(__file__), "lib"))  # point at lib folder for classes / references
 
 clr.AddReference("IronPython.SQLite.dll")
@@ -18,27 +18,26 @@ Website = "https://www.twitch.tv/column01"
 Description = "Uses twitch Emotes for a slot machine"
 Creator = "Colin Andress"
 Version = "1.0"
-command = '!slots'
 cooldowns = []
-
+configFile = "config.json"
+path = os.path.dirname(__file__)
+Settings = {}
 # You can change these variables however you see fit!
-cost = 100
-currency = "C-Coins"
-cooldown = 600
-
-
-Reel = ["Kappa", "PogChamp", "LUL", "BlessRNG",
-        "KappaPride", "DoritosChip", "TheIlluminati"]
-
-
-class Rewards:
-    Jackpot = 25000
-    Triple = 10000
-    Double = 2000
 
 
 def Init():
-    global command, currency, cooldown, ScriptName
+    global command, currency, cooldown, ScriptName, Settings, cost, cooldown, currency, Reel, Jackpot, Triple, Double
+
+    with open(os.path.join(path, configFile), 'r') as f:
+        Settings = json.load(f)
+    cost = Settings["cost"]
+    cooldown = Settings["cooldown"]
+    currency = Settings["currency"]
+    command = Settings["command"]
+    Reel = Settings["reel"]
+    Jackpot = Settings["jackpot_reward"]
+    Triple = Settings["triple_reward"]
+    Double = Settings["double_reward"]
     return
 
 
@@ -48,29 +47,29 @@ def Execute(data):
     username = data.UserName
     #   Check if the proper command is used, the command is not on cooldown
     if data.IsChatMessage() and data.GetParam(0).lower() == command and not Parent.IsOnUserCooldown(ScriptName, command, userid):
-        double_message = '{} has gotten 2 of the same emote and won {} {}!'.format(username, Rewards.Double, currency)
-        triple_message = '{} has gotten 3 of the same emote and won {} {}!'.format(username, Rewards.Triple, currency)
-        jackpot_message = '{} has hit the jackpot! You win {} {}!'.format(username, Rewards.Jackpot, currency)
+        double_message = '{} has gotten 2 of the same emote and won {} {}!'.format(username, Double, currency)
+        triple_message = '{} has gotten 3 of the same emote and won {} {}!'.format(username, Triple, currency)
+        jackpot_message = '{} has hit the jackpot! You win {} {}!'.format(username, Jackpot, currency)
         # Takes away the amount the game costs and starts the slots. Also adds the user to a cooldown
         Parent.RemovePoints(userid, username, cost)
         slots()
         # Checks to see if all of the slots are not the same. If they are all not the same, the player loses the roll
         if slot1 == slot2 and slot2 == slot3 and slot1 == "KappaPride":  # Jackpot
             Parent.SendStreamMessage(jackpot_message)
-            Parent.AddPoints(userid, username, Rewards.Jackpot)
+            Parent.AddPoints(userid, username, Jackpot)
         # Checks if the first slot is the jackpot emote or not
         elif slot1 == slot2 and slot2 == slot3 and slot1 != "KappaPride":  # 1 and 2 and 3 not jackpot
             Parent.SendStreamMessage(triple_message)
-            Parent.AddPoints(userid, username, Rewards.Triple)
+            Parent.AddPoints(userid, username, Triple)
         elif slot1 == slot2 and slot2 != slot3:  # 1 2
             Parent.SendStreamMessage(double_message)
-            Parent.AddPoints(userid, username, Rewards.Double)
+            Parent.AddPoints(userid, username, Double)
         elif slot2 == slot3 and slot2 != slot1:  # 2 3
             Parent.SendStreamMessage(double_message)
-            Parent.AddPoints(userid, username, Rewards.Double)
+            Parent.AddPoints(userid, username, Double)
         elif slot1 == slot3 and slot1 != slot2:  # 3 1
             Parent.SendStreamMessage(double_message)
-            Parent.AddPoints(userid, username, Rewards.Double)
+            Parent.AddPoints(userid, username, Double)
         elif slot1 != slot2 and slot1 != slot3 and slot3 != slot2:
             lost_message = "I'm sorry, {}, but you lost!".format(username)
             Parent.SendStreamMessage(lost_message)
