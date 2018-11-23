@@ -11,7 +11,7 @@ You are welcome to fork this and make changes to them as you please, as long as 
 ## Plans
 
  ### Join Command
- I plan on leaving this be for a little while. I like where it is in terms of functionality and do not have plans to change it significantly.
+ I plan on adding a .JSON config file system like I did for the slots script.
 
 ### Slots Script
 I layed the groundwork for a .JSON Config file system for the Slots script, but it still leaves much to be desired. It needs a GUI in streamlabs so you can change the JSON settings without needing to edit the file in a text editor. This is a more advanced task that I will have to a lot of tinkering for and I have already learned so much recently and feel like I need a little break to work on other projects I have in the mix.
