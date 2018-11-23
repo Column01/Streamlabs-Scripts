@@ -4,7 +4,7 @@
 This is just a repository where I am going to store my streamlabs scripts.
 
 ## Can you change anything?
-You are welcome to fork this and make changes to them as you please, as long as the core variables stay the same (For Example: Cooldown, reward, cost, currency name etc.) This is will be obsolete once JSON config files are implemented. (see plans section for details)
+You are welcome to fork this and make changes to them as you please, as long as the existing variables stay the same (For Example: Cooldown, reward, cost, currency name etc.)
 
 **Note:** Please comment the code on any changes you make to the best of your ability. If I cannot understand the code by looking at the comment, I likely will not merge it to the master repository. I also ask is that you please do not complete the plans/tasks I have outlined below. This is after-all for fun, and if someone goes and does all the things I want to learn how to do, it wrecks it for me.
 
